@@ -1,6 +1,20 @@
 Blog::Application.routes.draw do
+  
+  root :to => "account#start"
+
+  get "account/start"
+
+  get "account/new"
+
+  get "account/remove"
+
+  get "account/login"
+
+  get "account/logout"
+
   resources :categories
 
+  resources :users
 
   get "comments/create"
 
@@ -10,6 +24,11 @@ Blog::Application.routes.draw do
     resources :comments
   end
 
+  root :to => "account#start"
+
+  post "account/new" => "account#new"
+
+  post "account/login" => "account#login"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

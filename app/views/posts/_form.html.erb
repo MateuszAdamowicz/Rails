@@ -14,6 +14,12 @@
 <% Category.all.each do |x| %>
   <% l << [x.name, x.id] %>
 <% end %>
+
+<% User.all.each do |x| %>
+  <% if x.id = session[:user_id] %>
+    <% @user = x %>
+  <% end %>
+<% end %>
   <div class="field">
     <%= f.label :title %><br />
     <%= f.text_field :title %>
@@ -24,7 +30,8 @@
   </div>
   <div class="field">
     <%= f.label :category_id %><br />
-    <%= f.select :category_id, options_for_select(l) %>
+    <%= f.select :category_id, options_for_select(l) %> <br />
+    <%= f.hidden_field :user_id, :value => @user.id %>
   </div>
   <div class="actions">
     <%= f.submit %>
