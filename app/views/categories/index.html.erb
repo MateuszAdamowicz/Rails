@@ -1,0 +1,21 @@
+<div style='background-color: red'><br><h1>Listning categories</h1><br/></div>
+  <div style='background-color: yellow'> <font size='3'><%= link_to "Posts", posts_path %> | 
+  <%= link_to "Categories", categories_path %></font></div>
+<br>
+<% @categories.reverse.each do |category| %>
+  <div style='background-color: #FFCC99'>
+    <table width="100%">
+      <tr align="Right"><td align="Left"><font size=4><strong><%= link_to category.name, category %></strong></font> created <%= time_ago_in_words category.created_at %> ago </td>
+      </tr>
+    </table>
+
+  </div>
+  <div style='background-color: #FFFF99'>
+    <%= truncate category.description, :length => 300 %>
+  </div>
+  <hr>
+<% end %>
+
+<p>
+  <%= link_to "New Category", new_category_path %>
+<p>

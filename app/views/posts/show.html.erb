@@ -1,0 +1,56 @@
+<% if defined? @comment and @comment.errors.any? %>                                                                                                         
+    <div id="error_explanation">                                                                                                                              
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>                                                                
+                                                                                                                                                                      
+      <ul>                                                                                                                                                            
+      <% @comment.errors.full_messages.each do |msg| %>                                                                                                                    
+        <li><%= msg %></li>                                                                                                                                                 
+      <% end %>                                                                                                                                                              
+      </ul>
+    </div>
+<% end %>
+  <div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> | 
+  <%= link_to "Categories", categories_path %></font></div>
+<br>
+<div style='background-color: #FFCC99'>
+	<table width=100%>
+		<tr align="Right">
+			<td align='Left'>
+				<font size=4><%= @post.title %></font>
+			</td>
+			<td algin='Right'>
+				<%= link_to 'Back', posts_path %> |
+				<%= link_to 'Edit', edit_post_path(@post) %>
+				<%= link_to 'Delete', @post, :method => :delete, :confirm => "Are you sure?"%>
+				<font size=3> [<%=link_to Category.find(@post.category_id).name, Category.find(@post.category_id) %>]</font>
+			</td>
+		</tr>
+	</table>
+</div>
+<hr>
+<div style='background-color: #FFFF99'>
+	<font size=2><%= @post.body %></font>
+</div>
+<hr><hr>
+
+<h2>Commments</h2> 
+</table>
+<table style="float: left" width='75%'>
+<% id_of_post = 0 %>
+<% @post.comments.find(:all, :order => :created_at).reverse.each do |comment| %>
+	<% id_of_post += 1 %>
+	<tr><td>
+	<div style='background-color: #CCFF99'>[<%= id_of_post %>] <strong><%= link_to "[X]", [@post,comment], :method => :delete, :confirm => "Are you sure?" %> </strong> <%= time_ago_in_words comment.created_at %> ago</div>
+	<div style='background-color: #CCFFCC'><%= comment.body %> </div>
+	<hr></td></tr>
+<% end %>
+</table>
+
+<table style="float:left">
+	<tr><td>
+<%= form_for [@post, @post.comments.build] do |f| %>
+	<%= f.text_area :body %><br/>
+	<%= f.submit "New Comment" %> 
+<% end %>
+	</td></tr>
+</table>

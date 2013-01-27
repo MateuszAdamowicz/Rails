@@ -1,0 +1,35 @@
+<div style='background-color: red'><br><h1> Welcome to my Blog</h1><br/></div>
+  <div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> | 
+  <%= link_to "Categories", categories_path %></font></div>
+<br>
+<% @posts.reverse.each do |post| %>
+  <div style='background-color: #FFCC99'>
+    <table width="100%">
+      <tr align="Right"><td align="Left"><font size=4><strong><%= link_to post.title, post %></strong></font> created <%= time_ago_in_words post.created_at %> ago (<%= link_to post.comments.length, post %> comments)</td>
+        <td align="Right">[<%= link_to Category.find(post.category_id).name, Category.find(post.category_id) %>]</td></tr>
+    </table>
+
+  </div>
+  <div style='background-color: #FFFF99'>
+    <%= post.body %>
+  </div>
+  <% if post.comments.length > 0 %>
+    <table width=40%>
+      <tr>
+        <td>
+          <div style='background-color: #F0F0F0'>
+            <strong>Last comment: <%= time_ago_in_words post.comments.last.created_at %> ago </strong>
+          </div>
+          <div style='background-color: #F8F8F8'>
+            <%= post.comments.last.body %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+  <hr>
+<% end %>
+
+<p>
+  <%= link_to "New Post", new_post_path %>
+<p>
