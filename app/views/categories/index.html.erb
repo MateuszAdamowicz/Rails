@@ -1,4 +1,6 @@
-<div style='background-color: red'><br><h1>Listning categories</h1><br/></div>
+<div style='background-color: red'>
+  <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %>
+  <br><h1>Listning categories</h1><br/></div>
   <div style='background-color: yellow'> <font size='3'><%= link_to "Posts", posts_path %> | 
   <%= link_to "Categories", categories_path %></font></div>
 <br>
