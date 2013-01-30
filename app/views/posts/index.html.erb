@@ -1,13 +1,15 @@
+
+
 <div style='background-color: red'>
-  <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %>
+  <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %> <%= link_to 'Logout', :controller => 'account', :action => 'logout' %>
   <br><h1> Welcome to my Blog</h1><br/></div>
-  <div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> | 
+  <div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> |
   <%= link_to "Categories", categories_path %></font></div>
 <br>
 <% @posts.reverse.each do |post| %>
   <div style='background-color: #FFCC99'>
     <table width="100%">
-      <tr align="Right"><td align="Left"><font size=4><strong><%= link_to post.title, post %></strong></font> created <%= time_ago_in_words post.created_at %> ago (<%= link_to post.comments.length, post %> comments)</td>
+      <tr align="Right"><td align="Left"><font size=4><strong><%= link_to post.title, post %></strong></font> created <%= time_ago_in_words post.created_at %> ago by <%= post.user.username %> (<%= link_to post.comments.length, post %> comments)</td>
         <td align="Right">[<%= link_to Category.find(post.category_id).name, Category.find(post.category_id) %>]</td></tr>
     </table>
 

@@ -1,16 +1,17 @@
-<% if defined? @comment and @comment.errors.any? %>                                                                                                         
-    <div id="error_explanation">                                                                                                                              
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>                                                                
-                                                                                                                                                                      
-      <ul>                                                                                                                                                            
-      <% @comment.errors.full_messages.each do |msg| %>                                                                                                                    
-        <li><%= msg %></li>                                                                                                                                                 
-      <% end %>                                                                                                                                                              
+<% if defined? @comment and @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
       </ul>
     </div>
 <% end %>
-	<div style='background-color: red'> <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %></div>
-	<div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> | 
+	<div style='background-color: red'> <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %> <%= link_to 'Logout', :controller => 'account', :action => 'logout' %></div>
+	<div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> |
   <%= link_to "Categories", categories_path %></font></div>
 <br>
 <div style='background-color: #FFCC99'>
@@ -32,9 +33,11 @@
 <div style='background-color: #FFFF99'>
 	<font size=2><%= @post.body %></font>
 </div>
-<hr><hr>
+<div align= 'right'><%= @post.user.username %> </div>
+<hr>
+<hr>
 
-<h2>Commments</h2> 
+<h2>Commments</h2>
 </table>
 <table style="float: left" width='75%'>
 <% id_of_post = 0 %>
@@ -52,7 +55,7 @@
 <%= form_for [@post, @post.comments.build] do |f| %>
 	<%= f.text_area :body %><br/>
 	<%= f.hidden_field :user_id, :value => session[:user_id]%>
-	<%= f.submit "New Comment" %> 
+	<%= f.submit "New Comment" %>
 <% end %>
 	</td></tr>
 </table>

@@ -1,5 +1,5 @@
- <div style='background-color: red'> <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %></div> 
- <div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> | 
+ <div style='background-color: red'> <b>Welcome, </b> <%= link_to User.find(session[:user_id]).username, '/' %> <%= link_to 'Logout', :controller => 'account', :action => 'logout' %></div>
+ <div style='background-color: yellow'><font size='3'><%= link_to "Posts", posts_path %> |
   <%= link_to "Categories", categories_path %></font></div>
 <br>
 
@@ -11,7 +11,7 @@
 			</td>
 			<td algin='Right'>
 				<%= link_to 'Back', categories_path %> |
-				<%= link_to 'Edit', edit_category_path(@category) %> | 
+				<%= link_to 'Edit', edit_category_path(@category) %> |
 				<%= link_to 'Delete', @category, :method => :delete, :confirm => "Are you sure?"%>
 			</td>
 		</tr>
@@ -33,7 +33,7 @@
 	<% @category.posts.each do |post| %>
 	<tr><td>
 		<div style='background-color: #CCFF99'>
-			<strong>Title:</strong> <%= link_to post.title, post %>
+			<strong>Title:</strong> <%= link_to post.title, post %> by <strong><%= post.user.username %></strong> <%= time_ago_in_words post.created_at %> ago
 		</div>
 		<div style='background-color: #CCFFCC'>
 			<strong>Text:</strong> <%= truncate post.body, :length => 100 %>
